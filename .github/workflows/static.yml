@@ -1,43 +1,277 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hireright Consulting - AI-Powered Business Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A101F;
+            color: #E0E0E0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+        }
+        .hero-bg {
+            position: relative;
+            background: #0A101F;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(29, 78, 216, 0.3), transparent 60%);
+            transform: translate(-50%, -50%);
+            animation: pulse 8s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+        }
+        .section-title {
+            color: #FFFFFF;
+        }
+        .cta-button {
+            background: linear-gradient(90deg, #2563EB, #3B82F6);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
+        }
+        header.scrolled {
+            background-color: rgba(10, 16, 31, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .logo-text {
+             background: -webkit-linear-gradient(45deg, #3B82F6, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Scroll Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+    </style>
+</head>
+<body class="antialiased">
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <svg class="w-10 h-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3B82F6" />
+                            <stop offset="100%" style="stop-color:#60A5FA" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#logoGradient)" d="M20,10 L50,10 Q80,10 80,40 L80,90 L50,90 Q20,90 20,60 L20,10 Z M35,25 L35,60 Q35,75 50,75 L65,75 L65,40 Q65,25 50,25 L35,25 Z" />
+                </svg>
+                <span class="text-2xl font-extrabold tracking-wider logo-text">HIRERIGHT</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition">Services</a>
+                <a href="#why-us" class="text-gray-300 hover:text-white transition">Why Us</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-500 transition cta-button">Contact Us</a>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/90 backdrop-blur-sm">
+            <a href="#about" class="block text-center text-gray-300 hover:text-white py-3">About</a>
+            <a href="#services" class="block text-center text-gray-300 hover:text-white py-3">Services</a>
+            <a href="#why-us" class="block text-center text-gray-300 hover:text-white py-3">Why Us</a>
+            <a href="#contact" class="block text-center text-gray-300 hover:text-white py-3">Contact Us</a>
+        </div>
+    </header>
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    <!-- Hero Section -->
+    <section class="hero-bg text-white pt-32 pb-20 md:pt-40 md:pb-28">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-tight">Future-Proof Your Growth with AI-Driven Consulting</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto">We are your strategic partner in Vietnam and Asia, leveraging technology to build strong foundations and drive sustainable success.</p>
+            <a href="#services" class="cta-button text-white font-bold py-4 px-10 rounded-full text-lg">Explore Our Solutions</a>
+        </div>
+    </section>
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    <!-- About Section -->
+    <section id="about" class="py-20 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <!-- Text Content -->
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-3xl md:text-4xl font-bold section-title mb-6">About Hireright Consulting</h2>
+                    <p class="text-gray-400 leading-relaxed">Our vision is to be a trusted strategic partner, empowering businesses in Vietnam and across Asia to build strong foundations and scale sustainably. We deliver tailored consulting services across HR, Company Formation, IT, and Accounting to help clients navigate complexity and drive long-term success.</p>
+                </div>
+                <!-- Visual Element -->
+                <div class="md:w-1/2 flex justify-center">
+                     <div class="w-72 h-72 md:w-80 md:h-80 rounded-full border-2 border-blue-900/50 flex items-center justify-center relative p-4">
+                         <div class="w-full h-full rounded-full border-2 border-blue-800/60 animate-spin-slow flex items-center justify-center">
+                              <div class="w-2/3 h-2/3 rounded-full border-2 border-blue-700/70 animate-spin-slow" style="animation-direction: reverse;">
+                              </div>
+                         </div>
+                         <i class="fas fa-project-diagram text-6xl text-blue-500 absolute"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-black/20 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Our Core Services</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Integrated solutions powered by expertise and technology.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <i class="fas fa-users-cog text-4xl text-blue-400 mb-5"></i>
+                    <h3 class="font-bold text-xl mb-3">HR Consulting</h3>
+                    <p class="text-gray-400">Talent acquisition, performance systems, compliance, and culture management.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <i class="fas fa-building-shield text-4xl text-blue-400 mb-5"></i>
+                    <h3 class="font-bold text-xl mb-3">Company Setup</h3>
+                    <p class="text-gray-400">Fast, compliant business launch, from legal registration to operational support.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <i class="fas fa-microchip text-4xl text-blue-400 mb-5"></i>
+                    <h3 class="font-bold text-xl mb-3">IT Consulting</h3>
+                    <p class="text-gray-400">Infrastructure planning, cybersecurity, and digital transformation.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <i class="fas fa-file-invoice-dollar text-4xl text-blue-400 mb-5"></i>
+                    <h3 class="font-bold text-xl mb-3">Accounting & Payroll</h3>
+                    <p class="text-gray-400">Financial transparency, tax compliance, and payroll processing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-20 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">The Hireright Advantage</h2>
+            </div>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-blue-900/50 rounded-full border border-blue-700">
+                        <i class="fas fa-brain text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2 text-white">Local & Regional Expertise</h3>
+                    <p class="text-gray-400">Deep market understanding combined with a broad regional vision for scalable strategies.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-blue-900/50 rounded-full border border-blue-700">
+                        <i class="fas fa-project-diagram text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2 text-white">Integrated One-Stop Solution</h3>
+                    <p class="text-gray-400">Holistic support for all core business operations, ensuring seamless and efficient growth.</p>
+                </div>
+                 <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-blue-900/50 rounded-full border border-blue-700">
+                        <i class="fas fa-shield-halved text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-2 text-white">Confidentiality & Compliance</h3>
+                    <p class="text-gray-400">Unyielding commitment to data security and regulatory compliance in all engagements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Footer -->
+    <footer id="contact" class="bg-black/20 pt-20 pb-10 fade-in-section">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-white">Let's Build the Future of Your Business</h2>
+            <p class="mb-10 max-w-xl mx-auto text-gray-400">Reach out to discover how our expertise can fuel your growth trajectory.</p>
+            <a href="mailto:justindoan.work@gmail.com" class="cta-button text-white font-bold py-4 px-10 rounded-full text-lg inline-block">
+                Start a Conversation
+            </a>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-gray-400 mt-16">
+                 <p><i class="fas fa-envelope mr-2"></i>justindoan.work@gmail.com</p>
+                 <p><i class="fas fa-phone-alt mr-2"></i>+84 36 252 1530</p>
+            </div>
+            <div class="mt-12 border-t border-gray-800 pt-8">
+                <p class="text-gray-500">&copy; 2024 Hireright Consulting. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll animations
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>
+
